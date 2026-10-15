@@ -1,0 +1,327 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ topic.title }} Quiz - Mind Spark</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7ff;
+            color: #222;
+        }
+
+        nav {
+            background: #101a3a;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 850px;
+            margin: 50px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            color: #101a3a;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        /* Quiz Timer */
+        .timer {
+            background: white;
+            color: #101a3a;
+            text-align: center;
+            padding: 18px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        #time-left {
+            color: #7657ff;
+            font-size: 26px;
+        }
+
+        .timer.warning #time-left {
+            color: #e53935;
+        }
+
+        .question-card {
+            background: white;
+            padding: 28px;
+            margin-bottom: 22px;
+            border-radius: 16px;
+            box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-number {
+            color: #7657ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            color: #101a3a;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            background: #f5f7ff;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #e9e5ff;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: #7657ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 9px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #6044d8;
+        }
+
+        footer {
+            background: #101a3a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 70px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px 5%;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+                margin-right: 12px;
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">💡 Mind Spark</div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/categories/">Categories</a>
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/logout/">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>📝 {{ topic.title }} Quiz</h1>
+            <p>Test what you learned from this topic.</p>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="timer" id="quiz-timer" role="timer" aria-live="off">
+            ⏳ Time Remaining: <span id="time-left">10:00</span>
+        </div>
+
+        <form method="POST" id="quiz-form">
+            {% csrf_token %}
+
+            {% for question in questions %}
+            <div class="question-card">
+
+                <div class="question-number">
+                    Question {{ forloop.counter }}
+                </div>
+
+                <div class="question">
+                    {{ question.question }}
+                </div>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question_{{ question.id }}"
+                        value="{{ question.option1 }}"
+                    >
+                    {{ question.option1 }}
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question_{{ question.id }}"
+                        value="{{ question.option2 }}"
+                    >
+                    {{ question.option2 }}
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question_{{ question.id }}"
+                        value="{{ question.option3 }}"
+                    >
+                    {{ question.option3 }}
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question_{{ question.id }}"
+                        value="{{ question.option4 }}"
+                    >
+                    {{ question.option4 }}
+                </label>
+
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+                Submit Quiz 🚀
+            </button>
+
+        </form>
+
+    </div>
+
+    <footer>
+        © 2026 Mind Spark. Learn something new every day.
+    </footer>
+
+    <script>
+        const quizForm = document.getElementById("quiz-form");
+        const timerBox = document.getElementById("quiz-timer");
+        const timeDisplay = document.getElementById("time-left");
+        const submitButton = document.getElementById("submit-btn");
+
+        const totalSeconds = 10 * 60;
+        let remainingSeconds = totalSeconds;
+        let quizSubmitted = false;
+
+        function updateTimer() {
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+
+            timeDisplay.textContent =
+                String(minutes).padStart(2, "0") + ":" +
+                String(seconds).padStart(2, "0");
+
+            if (remainingSeconds <= 60) {
+                timerBox.classList.add("warning");
+            }
+        }
+
+        function submitQuiz() {
+            if (quizSubmitted) return;
+
+            quizSubmitted = true;
+            clearInterval(timerInterval);
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting Quiz...";
+
+            // Submit the existing Django quiz form.
+            quizForm.requestSubmit(submitButton);
+        }
+
+        quizForm.addEventListener("submit", function(event) {
+            if (quizSubmitted) return;
+
+            quizSubmitted = true;
+            clearInterval(timerInterval);
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting Quiz...";
+        });
+
+        updateTimer();
+
+        const timerInterval = setInterval(function() {
+            if (remainingSeconds > 0) {
+                remainingSeconds--;
+                updateTimer();
+            }
+
+            if (remainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                timeDisplay.textContent = "00:00";
+                submitQuiz();
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>

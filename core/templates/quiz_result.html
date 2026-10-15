@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result | Mind Spark</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0b1026, #182653, #30205c);
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px 7%;
+            background: rgba(10, 15, 40, 0.85);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c5b4ff;
+        }
+
+        nav a {
+            color: #eeeaff;
+            text-decoration: none;
+            margin-left: 14px;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 45px auto;
+        }
+
+        .result-card, .answers-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .result-card {
+            text-align: center;
+        }
+
+        .emoji {
+            font-size: 58px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .topic {
+            color: #c5b4ff;
+            margin-bottom: 25px;
+        }
+
+        .score-circle {
+            width: 145px;
+            height: 145px;
+            border: 7px solid #9b83ff;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-circle h2 {
+            font-size: 32px;
+            color: #d2c5ff;
+        }
+
+        .score-circle p {
+            margin-top: 5px;
+            font-size: 13px;
+            color: #d0d2e9;
+        }
+
+        .message {
+            color: #e0def5;
+            line-height: 1.7;
+        }
+
+        .progress-track {
+            height: 11px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7857f6, #c5a8ff);
+        }
+
+        .percentage {
+            color: #c5b4ff;
+            font-size: 14px;
+        }
+
+        .answers-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .answer-item {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .answer-item.correct {
+            border-left: 5px solid #42d99a;
+        }
+
+        .answer-item.incorrect {
+            border-left: 5px solid #ff7777;
+        }
+
+        .question {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.6;
+            margin-bottom: 13px;
+        }
+
+        .answer-line {
+            margin-top: 9px;
+            line-height: 1.6;
+            color: #e4e3f5;
+            overflow-wrap: anywhere;
+        }
+
+        .correct-text {
+            color: #75efb8;
+        }
+
+        .wrong-text {
+            color: #ff9999;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 20px;
+            background: #7857f6;
+            border-radius: 9px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #aeb4d5;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                margin-left: 8px;
+                line-height: 2.2;
+            }
+
+            .result-card, .answers-card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">🧠 Mind Spark</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/categories/">Categories</a>
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/leaderboard/">Leaderboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="result-card">
+            <div class="emoji">
+                {% if total > 0 and score == total %}
+                    🏆
+                {% elif score > 0 %}
+                    🎉
+                {% else %}
+                    💪
+                {% endif %}
+            </div>
+
+            <h1>Quiz Completed!</h1>
+            <p class="topic">{{ topic.title }}</p>
+
+            <div class="score-circle">
+                <h2>{{ score }}/{{ total }}</h2>
+                <p>Your Score</p>
+            </div>
+
+            <p class="message">
+                {% if total > 0 and score == total %}
+                    Excellent! Perfect score! Keep up the amazing work! 🌟
+                {% elif score > 0 %}
+                    Good effort! Review your answers and keep improving. 🚀
+                {% else %}
+                    Don't give up! Review the answers and try again. 💜
+                {% endif %}
+            </p>
+
+            {% if total > 0 %}
+                <div class="progress-track">
+                    <div class="progress-fill"
+                         style="width: {% widthratio score total 100 %}%;">
+                    </div>
+                </div>
+                <p class="percentage">
+                    {% widthratio score total 100 %}% score achieved
+                </p>
+            {% endif %}
+
+            <div class="buttons">
+                <a href="/quiz/{{ topic.id }}/" class="btn">🔁 Try Again</a>
+                <a href="/categories/" class="btn btn-secondary">📚 More Topics</a>
+                <a href="/dashboard/" class="btn btn-secondary">📊 Dashboard</a>
+            </div>
+        </section>
+
+        <section class="answers-card">
+            <h2>📝 Review Your Answers</h2>
+
+            {% for item in answers %}
+                <div class="answer-item {% if item.is_correct %}correct{% else %}incorrect{% endif %}">
+
+                    <p class="question">
+                        {{ forloop.counter }}. {{ item.question.question }}
+                    </p>
+
+                    {% if item.is_correct %}
+                        <p class="answer-line correct-text">
+                            ✅ Your answer: {{ item.selected_answer }}
+                        </p>
+                        <p class="answer-line correct-text">
+                            Correct answer: {{ item.correct_answer }}
+                        </p>
+                    {% else %}
+                        <p class="answer-line wrong-text">
+                            ❌ Your answer: {{ item.selected_answer }}
+                        </p>
+                        <p class="answer-line correct-text">
+                            ✅ Correct answer: {{ item.correct_answer }}
+                        </p>
+                    {% endif %}
+
+                </div>
+            {% empty %}
+                <p>Answer review is not available for this attempt. Complete a new quiz to review your answers here.</p>
+            {% endfor %}
+        </section>
+
+    </main>
+
+    <footer>
+        © 2026 Mind Spark | Learn • Practice • Grow 🧠
+    </footer>
+
+</body>
+</html>

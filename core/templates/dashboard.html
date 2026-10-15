@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Mind Spark</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1025;
+            color: #f4f5ff;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px 7%;
+            background: #111936;
+            border-bottom: 1px solid #29345d;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        nav a {
+            color: #d7dcff;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #a998ff;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            padding: 32px;
+            margin-bottom: 28px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #263d82, #633acb);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p {
+            line-height: 1.7;
+            color: #eceaff;
+        }
+
+        .section-title {
+            font-size: 23px;
+            margin: 30px 0 18px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            padding: 24px;
+            background: #151e3c;
+            border: 1px solid #29345d;
+            border-radius: 16px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #8a70ff;
+        }
+
+        .card .icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            color: #b9c3ec;
+            margin-bottom: 12px;
+        }
+
+        .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #b6a4ff;
+        }
+
+        .description {
+            font-size: 13px;
+            color: #9da8d2;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .progress-card {
+            margin-top: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .progress-track {
+            height: 12px;
+            background: #29345d;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7657ff, #b6a4ff);
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .action {
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            padding: 19px;
+            border-radius: 14px;
+            background: #151e3c;
+            border: 1px solid #29345d;
+            color: #ffffff;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .action:hover {
+            background: #263d82;
+            border-color: #8a70ff;
+        }
+
+        .tips {
+            margin-top: 28px;
+            padding: 25px;
+            border-radius: 16px;
+            background: #151e3c;
+            border: 1px solid #29345d;
+        }
+
+        .tips h2 {
+            margin-bottom: 15px;
+            font-size: 21px;
+        }
+
+        .tips p {
+            color: #c5cbed;
+            line-height: 1.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 50px;
+            border-top: 1px solid #29345d;
+            color: #9da8d2;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 8px 10px 0 0;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .welcome {
+                padding: 23px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🧠 Mind Spark</div>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/categories/">Categories</a>
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/leaderboard/">Leaderboard</a>
+        <a href="/logout/">Logout</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <section class="welcome">
+        <h1>Welcome to Mind Spark! 👋</h1>
+        <p>
+            Keep learning, practice your knowledge, and discover
+            something interesting every day.
+        </p>
+    </section>
+
+    <h2 class="section-title">📊 Your Learning Overview</h2>
+
+    <section class="stats">
+
+        <div class="card">
+            <div class="icon">📚</div>
+            <h3>Topics Learned</h3>
+            <div class="number">{{ topics_learned }}</div>
+            <p class="description">Different topics you've attempted.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🎯</div>
+            <h3>Quizzes Completed</h3>
+            <div class="number">{{ quizzes_completed }}</div>
+            <p class="description">Total quiz attempts you've completed.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">✅</div>
+            <h3>Correct Answers</h3>
+            <div class="number">{{ total_score }}</div>
+            <p class="description">Correct answers across all your attempts.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📝</div>
+            <h3>Questions Attempted</h3>
+            <div class="number">{{ total_questions }}</div>
+            <p class="description">Total questions counted across completed quizzes.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📈</div>
+            <h3>Overall Accuracy</h3>
+            <div class="number">{{ accuracy }}%</div>
+            <p class="description">Correct answers divided by all quiz questions.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Best Quiz Score</h3>
+            <div class="number">{{ best_score }}%</div>
+            <p class="description">Your highest percentage in a single quiz attempt.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔥</div>
+            <h3>Current Streak</h3>
+            <div class="number">{{ current_streak }} days</div>
+            <p class="description">
+                Consecutive days with at least one completed quiz.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏅</div>
+            <h3>Best Streak</h3>
+            <div class="number">{{ best_streak }} days</div>
+            <p class="description">
+                Your longest streak of daily quiz practice.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="card progress-card">
+        <div class="progress-header">
+            <strong>📈 Overall Accuracy</strong>
+            <strong>{{ accuracy }}%</strong>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill"
+                 style="width: {{ accuracy }}%;"></div>
+        </div>
+
+        <p class="description">
+            Keep practicing to improve your accuracy!
+        </p>
+    </section>
+
+    <h2 class="section-title">🚀 Continue Learning</h2>
+
+    <section class="actions">
+        <a class="action" href="/categories/">📚 Explore Categories</a>
+        <a class="action" href="/random-topic/">🎲 Discover a Random Topic</a>
+        <a class="action" href="/leaderboard/">🏆 View Leaderboard</a>
+        <a class="action" href="/">🏠 Back to Home</a>
+    </section>
+
+    <section class="tips">
+        <h2>💡 Learning Tips</h2>
+        <p>🧠 Learn one new concept every day.</p>
+        <p>🎯 Attempt quizzes to test your understanding.</p>
+        <p>📖 Review incorrect answers and learn from mistakes.</p>
+        <p>🚀 Practice regularly and track your progress.</p>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Mind Spark | Learn • Practice • Grow 🧠
+</footer>
+
+</body>
+</html>

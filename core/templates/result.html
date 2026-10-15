@@ -1,0 +1,173 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result - Mind Spark</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7ff;
+            color: #222;
+        }
+
+        nav {
+            background: #101a3a;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 45px auto;
+        }
+
+        .result-card, .question-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.08);
+        }
+
+        .result-card {
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #101a3a;
+        }
+
+        .score {
+            color: #7657ff;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .correct {
+            color: #168044;
+        }
+
+        .incorrect {
+            color: #d32f2f;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #7657ff;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 8px;
+        }
+
+        footer {
+            background: #101a3a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">💡 Mind Spark</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/categories/">Categories</a>
+        <a href="/dashboard/">Dashboard</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="result-card">
+        <h1>🎉 Quiz Completed!</h1>
+        <h2>{{ topic.title }}</h2>
+
+        <div class="score">
+            {{ score }} / {{ total }}
+        </div>
+
+        <p>Percentage: {{ percentage }}%</p>
+
+        {% if percentage >= 80 %}
+            <p>Excellent work! Keep learning. 🌟</p>
+        {% elif percentage >= 50 %}
+            <p>Good effort! Practice more to improve. 💪</p>
+        {% else %}
+            <p>Keep practicing. You will improve! 📚</p>
+        {% endif %}
+
+        <a href="/categories/" class="btn">Try Another Quiz</a>
+        <a href="/dashboard/" class="btn">Go to Dashboard</a>
+    </div>
+
+    <h2>📝 Answer Review</h2>
+
+    {% for item in results %}
+    <div class="question-card">
+
+        <h3>Question {{ forloop.counter }}</h3>
+
+        <p>{{ item.question.question }}</p>
+
+        <p>
+            Your answer:
+            <strong>{{ item.selected_answer|default:"Not answered" }}</strong>
+        </p>
+
+        <p>
+            Correct answer:
+            <strong>{{ item.correct_answer }}</strong>
+        </p>
+
+        {% if item.is_correct %}
+            <p class="correct">✓ Correct answer!</p>
+        {% else %}
+            <p class="incorrect">✗ Incorrect answer</p>
+        {% endif %}
+
+    </div>
+    {% empty %}
+        <p>No questions were available for this quiz.</p>
+    {% endfor %}
+
+</div>
+
+<footer>
+    © 2026 Mind Spark. Learn something new every day.
+</footer>
+
+</body>
+</html>
+```

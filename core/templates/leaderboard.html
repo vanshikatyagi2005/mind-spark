@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard | Mind Spark</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #10172f;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #d7dcf0;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #a99aff;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .trophy {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #c2c9df;
+            line-height: 1.6;
+        }
+
+        .table-card {
+            background: #1b2545;
+            border: 1px solid #34416b;
+            border-radius: 14px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 17px 12px;
+            border-bottom: 1px solid #34416b;
+        }
+
+        th {
+            color: #b9b0ff;
+            font-size: 14px;
+        }
+
+        td {
+            color: #ffffff;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .username {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .score {
+            color: #b9aaff;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            color: #c2c9df;
+            padding: 30px 10px;
+        }
+
+        .message {
+            text-align: center;
+            color: #c2c9df;
+            margin: 25px 0;
+            line-height: 1.7;
+        }
+
+        .button {
+            display: inline-block;
+            background: #7657ff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #6040e8;
+        }
+
+        .footer {
+            text-align: center;
+            color: #9da8c9;
+            margin-top: 45px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            th, td {
+                padding: 13px 9px;
+                font-size: 13px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav>
+            <div class="logo">🧠 Mind Spark</div>
+
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'categories' %}">Categories</a>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'leaderboard' %}">Leaderboard</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </nav>
+
+        <div class="heading">
+            <div class="trophy">🏆</div>
+            <h1>Leaderboard</h1>
+            <p class="subtitle">
+                Learn more, practice more, and climb to the top!
+            </p>
+        </div>
+
+        <div class="table-card">
+            {% if leaderboard %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Quizzes Completed</th>
+                            <th>Total Score</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in leaderboard %}
+                            <tr>
+                                <td class="rank">
+                                    {% if forloop.counter == 1 %}
+                                        🥇 #1
+                                    {% elif forloop.counter == 2 %}
+                                        🥈 #2
+                                    {% elif forloop.counter == 3 %}
+                                        🥉 #3
+                                    {% else %}
+                                        #{{ forloop.counter }}
+                                    {% endif %}
+                                </td>
+
+                                <td class="username">
+                                    {{ item.user.username }}
+                                </td>
+
+                                <td>
+                                    {{ item.quizzes_completed }}
+                                </td>
+
+                                <td class="score">
+                                    {{ item.total_score }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">
+                    <h2>No quiz attempts yet</h2>
+                    <p>Complete a quiz to appear on the leaderboard.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <p class="message">
+            Every quiz is a new opportunity to learn and improve! ✨
+            <br><br>
+            <a href="{% url 'categories' %}" class="button">
+                Start Learning →
+            </a>
+        </p>
+
+        <div class="footer">
+            © 2026 Mind Spark | Learn • Practice • Grow 🧠
+        </div>
+
+    </div>
+</body>
+</html>

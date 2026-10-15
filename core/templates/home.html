@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mind Spark</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+
+        /* NAVBAR */
+
+        nav {
+            background: #101a3a;
+            padding: 18px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #7657ff;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #101a3a,
+                    #263d82
+                );
+
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #ddd;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* BUTTONS */
+
+        .btn {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            background: #7657ff;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #6244e8;
+        }
+
+        .btn-outline {
+            background: transparent;
+
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #101a3a;
+        }
+
+
+        /* FEATURES */
+
+        .section {
+            width: 85%;
+            max-width: 1100px;
+
+            margin: 70px auto;
+        }
+
+        .section-title {
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #101a3a;
+        }
+
+        .section-title p {
+            margin-top: 10px;
+            color: #666;
+        }
+
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+
+            padding: 35px 25px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.08);
+        }
+
+        .feature-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #101a3a;
+
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+
+            line-height: 1.6;
+        }
+
+
+        /* CATEGORIES */
+
+        .categories {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+
+            padding: 30px 20px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: #222;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 42px;
+
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            color: #101a3a;
+        }
+
+
+        /* LEADERBOARD SECTION */
+
+        .leaderboard-section {
+            background: #101a3a;
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+            color: white;
+        }
+
+        .leaderboard-section h2 {
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+        .leaderboard-section p {
+            color: #ddd;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #0b122b;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero h2 {
+                font-size: 23px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            🧠 Mind Spark
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/categories/">
+                Categories
+            </a>
+
+            <a href="/leaderboard/">
+                Leaderboard
+            </a>
+
+            {% if request.user.is_authenticated %}
+
+                <a href="/dashboard/">
+                    Dashboard
+                </a>
+
+                <a href="/logout/">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="/login/">
+                    Login
+                </a>
+
+                <a href="/signup/">
+                    Sign Up
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Welcome to Mind Spark 🧠
+            </h1>
+
+            <h2>
+                Learn • Practice • Grow
+            </h2>
+
+            <p>
+                Discover interesting knowledge,
+                explore different topics,
+                test yourself with quizzes
+                and keep learning something new every day.
+            </p>
+
+
+            <a href="/categories/" class="btn">
+                Start Learning 🚀
+            </a>
+
+
+            <a href="/leaderboard/" class="btn btn-outline">
+                View Leaderboard 🏆
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Why Mind Spark?
+            </h2>
+
+            <p>
+                Learn something interesting every day.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+
+            <div class="feature-card">
+
+                <div class="icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+                    Explore interesting topics
+                    from psychology, science,
+                    technology and general knowledge.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="icon">
+                    📝
+                </div>
+
+                <h3>
+                    Practice
+                </h3>
+
+                <p>
+                    Test your knowledge with
+                    interactive quizzes and
+                    challenging questions.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="icon">
+                    📈
+                </div>
+
+                <h3>
+                    Improve
+                </h3>
+
+                <p>
+                    Track your progress,
+                    improve your score and
+                    keep learning.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Explore Categories
+            </h2>
+
+            <p>
+                Choose something you are curious about.
+            </p>
+
+        </div>
+
+
+        <div class="categories">
+
+
+            <a href="/categories/" class="category-card">
+
+                <div class="category-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Psychology
+                </h3>
+
+            </a>
+
+
+            <a href="/categories/" class="category-card">
+
+                <div class="category-icon">
+                    🔬
+                </div>
+
+                <h3>
+                    Science
+                </h3>
+
+            </a>
+
+
+            <a href="/categories/" class="category-card">
+
+                <div class="category-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Computer History
+                </h3>
+
+            </a>
+
+
+            <a href="/categories/" class="category-card">
+
+                <div class="category-icon">
+                    🌎
+                </div>
+
+                <h3>
+                    General Knowledge
+                </h3>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- LEADERBOARD -->
+
+    <section class="leaderboard-section">
+
+        <h2>
+            🏆 Challenge Yourself
+        </h2>
+
+        <p>
+            Complete quizzes, improve your score
+            and see your position on the leaderboard.
+        </p>
+
+        <a href="/leaderboard/" class="btn">
+            View Leaderboard
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Mind Spark.
+            Learn • Practice • Grow
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

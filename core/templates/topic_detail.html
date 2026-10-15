@@ -1,0 +1,189 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ topic.title }} - Mind Spark</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7ff;
+            color: #222;
+        }
+
+        nav {
+            background: #101a3a;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .nav-links a:hover {
+            color: #b9a8ff;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 850px;
+            margin: 60px auto;
+        }
+
+        .category {
+            color: #7657ff;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: #101a3a;
+            font-size: 42px;
+            margin-bottom: 25px;
+        }
+
+        .content {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            line-height: 1.8;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .quiz-btn {
+            background: #7657ff;
+            color: white;
+        }
+
+        .quiz-btn:hover {
+            background: #6044d8;
+        }
+
+        .random-btn {
+            background: #101a3a;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #1c2b5c;
+        }
+
+        .categories-btn {
+            background: #555;
+            color: white;
+        }
+
+        .categories-btn:hover {
+            background: #333;
+        }
+
+        footer {
+            background: #101a3a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            💡 Mind Spark
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/categories/">Categories</a>
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/logout/">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <div class="category">
+            {{ topic.category.icon }}
+            {{ topic.category.name }}
+        </div>
+
+        <h1>
+            {{ topic.title }}
+        </h1>
+
+        <div class="content">
+            {{ topic.content }}
+        </div>
+
+
+        <div class="buttons">
+
+            <!-- Take Quiz button -->
+            <a href="/quiz/{{ topic.id }}/" class="btn quiz-btn">
+                📝 Take Quiz
+            </a>
+
+            <!-- Explore Another Topic -->
+            <a href="/random-topic/" class="btn random-btn">
+                🎲 Explore Another Topic
+            </a>
+
+            <!-- All Categories -->
+            <a href="/categories/" class="btn categories-btn">
+                ← All Categories
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        © 2026 Mind Spark. Learn something new every day.
+    </footer>
+
+</body>
+</html>
+```
